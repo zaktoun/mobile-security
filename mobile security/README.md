@@ -153,40 +153,40 @@ Google Play Console    - Android app distribution
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    SYSTEM ARCHITECTURE                             │
+│                    SYSTEM ARCHITECTURE                              │
 ├─────────────────────────────────────────────────────────────────────┤
-│                                                                    │
-│   ┌──────────────────┐         ┌──────────────────┐              │
-│   │   📱 Android     │         │   🌐 Next.js     │              │
-│   │   App (Kotlin)   │────────▶│   Dashboard      │              │
-│   │                  │  REST   │  (TypeScript)    │              │
-│   │ • Threat Scan    │  API    │                  │              │
-│   │ • AI Analysis    │         │ • Real-time UI   │              │
-│   │ • WebSocket     │◀────────│ • Statistics    │              │
-│   └──────────────────┘  WS     │ • Device Mgmt   │              │
-│                            │    └────────┬─────────┘              │
-│                            │             │                        │
-│                            │             ▼                        │
-│                            │    ┌──────────────────┐           │
-│                            │    │   🤖 AI/ML      │           │
-│                            │    │   Service        │           │
-│                            │    │ (z-ai-sdk)      │           │
-│                            │    │                  │           │
-│                            │    │ • Pattern Recog  │           │
-│                            │    │ • Zero-day Det.  │           │
-│                            │    └────────┬─────────┘           │
-│                            │             │                     │
-│                            │             ▼                     │
-│                            │    ┌──────────────────┐           │
-│                            └───▶│   🗄️ Database   │           │
-│                                 │ (Prisma + SQL)  │           │
-│                                 │                  │           │
-│                                 │ • Devices        │           │
-│                                 │ • Threats        │           │
-│                                 │ • Alerts         │           │
-│                                 │ • Patterns       │           │
-│                                 └──────────────────┘           │
-│                                                                    │
+│                                                                     │
+│   ┌──────────────────┐         ┌──────────────────┐                 │
+│   │   📱 Android     │         │   🌐 Next.js     │                 │
+│   │   App (Kotlin)   │────────▶│   Dashboard      │                 │
+│   │                  │  REST   │  (TypeScript)    │                 │
+│   │ • Threat Scan    │  API    │                  │                 │
+│   │ • AI Analysis    │         │ • Real-time UI   │                 │
+│   │ • WebSocket     │◀────────│ • Statistics    │                   │
+│   └──────────────────┘  WS     │ • Device Mgmt   │                  │
+│                            │    └────────┬─────────┘                │
+│                            │             │                          │
+│                            │             ▼                          │
+│                            │    ┌──────────────────┐                │
+│                            │    │   🤖 AI/ML      │                 │
+│                            │    │   Service        │                │
+│                            │    │ (z-ai-sdk)      │                 │
+│                            │    │                  │                │
+│                            │    │ • Pattern Recog  │                │
+│                            │    │ • Zero-day Det.  │                │
+│                            │    └────────┬─────────┘                │
+│                            │             │                          │
+│                            │             ▼                          │
+│                            │    ┌──────────────────┐                │
+│                            └───▶│   🗄️ Database   │                 │
+│                                 │ (Prisma + SQL)  │                 │
+│                                 │                  │                │
+│                                 │ • Devices        │                │
+│                                 │ • Threats        │                │
+│                                 │ • Alerts         │                │
+│                                 │ • Patterns       │                │
+│                                 └──────────────────┘                │
+│                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -434,12 +434,12 @@ Jika Anda menyukai project ini:
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
-║                    Thank You for Visiting!                      ║
-║                                                                  ║
+║                    Thank You for Visiting!                   ║
+║                                                              ║
 ║   🔒 "Security is not a product, but a process"              ║
 ║   🤖 "AI empowers us to protect what matters most"           ║
-║   📱 "Every device deserves protection"                        ║
-║                                                                  ║
+║   📱 "Every device deserves protection"                      ║
+║                                                              ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
 
