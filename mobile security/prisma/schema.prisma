@@ -1,0 +1,144 @@
+// Mobile Security Dashboard Schema
+// Designed for zerodayrat and spyware detection system
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Device model - Stores registered mobile devices
+model Device {
+  id             String   @id @default(cuid())
+  deviceId       String   @unique // Unique device identifier
+  deviceName     String
+  platform       String   // "android" or "ios"
+  osVersion      String
+  appVersion     String
+  status         String   @default("active") // "active", "compromised", "clean"
+  lastSeen       DateTime @default(now())
+  lastScanAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  scanResults    ScanResult[]
+  threats        Threat[]
+  alerts         Alert[]
+
+  @@index([deviceId])
+  @@index([platform])
+  @@index([status])
+}
+
+// Threat model - Detected security threats
+model Threat {
+  id              String   @id @default(cuid())
+  type            String   // "zerodayrat", "spyware", "malware", "trojan", "adware"
+  name            String
+  severity        String   // "critical", "high", "medium", "low"
+  description     String
+  packageName     String?  // Android package name or iOS bundle id
+  filePath        String?
+  signature       String   // Threat signature/hash
+  confidence      Float    @default(0.0) // AI confidence score (0-1)
+  deviceId        String
+  status          String   @default("detected") // "detected", "quarantined", "removed"
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  device          Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  alert           Alert?
+
+  @@index([deviceId])
+  @@index([type])
+  @@index([severity])
+  @@index([createdAt])
+}
+
+// Alert model - Security alerts and notifications
+model Alert {
+  id              String   @id @default(cuid())
+  type            String   // "threat_detected", "scan_completed", "device_compromised", "security_update"
+  title           String
+  message         String
+  severity        String   // "critical", "high", "medium", "low"
+  status          String   @default("unread") // "unread", "read", "acknowledged"
+  deviceId        String
+  threatId        String?  @unique
+  actionRequired  Boolean  @default(true)
+  resolvedAt      DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  device          Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  threat          Threat?  @relation(fields: [threatId], references: [id])
+
+  @@index([deviceId])
+  @@index([threatId])
+  @@index([status])
+  @@index([severity])
+  @@index([createdAt])
+}
+
+// ScanResult model - Stores scan history and results
+model ScanResult {
+  id              String   @id @default(cuid())
+  scanType        String   // "full", "quick", "custom"
+  status          String   // "running", "completed", "failed"
+  duration        Int      // Scan duration in seconds
+  appsScanned     Int      @default(0)
+  threatsFound    Int      @default(0)
+  threatsQuarantined Int   @default(0)
+  threatsRemoved  Int      @default(0)
+  details         String?  // JSON string with detailed results
+  deviceId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  device          Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  @@index([deviceId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ThreatPattern model - ML/AI learned threat patterns
+model ThreatPattern {
+  id              String   @id @default(cuid())
+  patternType     String   // "behavior", "signature", "network", "permissions"
+  patternData     String   // JSON string with pattern details
+  matchRate       Float    @default(0.0) // How often this pattern matches
+  falsePositiveRate Float @default(0.0)
+  accuracy        Float    @default(0.0)
+  isActive        Boolean  @default(true)
+  lastUpdated     DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  @@index([patternType])
+  @@index([isActive])
+}
+
+// ThreatSignature model - Known threat signatures
+model ThreatSignature {
+  id              String   @id @default(cuid())
+  threatType      String   // "zerodayrat", "spyware", etc.
+  signature       String   // Hash/signature
+  name            String
+  description     String
+  severity        String   // "critical", "high", "medium", "low"
+  source          String   // "community", "ai_detected", "verified"
+  verifiedAt      DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([threatType])
+  @@index([signature])
+  @@index([verifiedAt])
+}
