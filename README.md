@@ -429,7 +429,7 @@ Jika Anda menyukai project ini:
 
 <div align="center">
 
-**Made with ❤️ and ☕ by [Your Name]**
+**Made with ❤️ and ☕ by [zaktoun]**
 
 *[Software Engineer | Security Specialist | AI/ML Enthusiast]*
 
